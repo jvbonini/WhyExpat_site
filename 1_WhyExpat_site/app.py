@@ -1,10 +1,11 @@
 from pathlib import Path
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 import os
 
 import pandas as pd
 import numpy as np
+import simplejson as json
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -14,31 +15,43 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
+
 database = {
-    'user': '',
-    'password': '',
+    'user': 'p3',
+    'password': 'project3',
     'port': '3306',
-    'host': 'localhost',
-    'database': 'project2',
-    'dialect': 'mysql',
+    'host': '127.0.0.1',
+    'database': 'projectwe',
     'driver': None
 }
 
-db_prefix = database['dialect']
 if database['driver'] is not None:
     db_prefix += database['driver']
-DATABASE_URL = f"{db_prefix}://{database['user']}:{database['password']}@{database['host']}:{database['port']}/{database['database']}"
+
+DATABASE_URL = f"mysql+pymysql://{database['user']}:{database['password']}@{database['host']}:{database['port']}/{database['database']}"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-Base = automap_base()
-Base.prepare(db.engine, reflect=True)
-print(Base.metadata.tables.keys())
-Summary2016 = Base.classes.summary_2016
-AirSummary = Base.classes.air_summary
-WorldAir = Base.classes.worldaire
+
+class why_expat_table(db.Model):
+    __tablename__ = "why_expat_table"
+
+    test_id = db.Column(db.Integer, primary_key=True)
+    satisfaction_level = db.Column(db.VARCHAR(20))
+    last_evaluation = db.Column(db.VARCHAR(20))
+    number_project = db.Column(db.VARCHAR(20))
+    average_montly_hours = db.Column(db.VARCHAR(20))
+    work_accident = db.Column(db.VARCHAR(20))
+    promotion_last_5years = db.Column(db.VARCHAR(20))
+    salary = db.Column(db.VARCHAR(20))
+    leader_host = db.Column(db.VARCHAR(20))
+    culture_home = db.Column(db.VARCHAR(20))
+    culture_host = db.Column(db.VARCHAR(20))
+    function_host = db.Column(db.VARCHAR(20))
+    business_size_host = db.Column(db.VARCHAR(20))
+    economic_perspective_host = db.Column(db.VARCHAR(20))
 
 
 @app.route("/")
@@ -47,124 +60,17 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/heatmap")
-def heatmap():
-    return render_template("heatmap.html")
+@app.route("/questionnaire", methods=['GET', 'POST'])
+def questionnaire():
+    if request.method == 'GET':
+        return render_template("questionnaire.html")
 
+    we_summary = why_expat_table(satisfaction_level=request.form['satisfaction_level'],
+                                 last_evaluation=request.form['last_evaluation'], number_project=request.form['number_project'], average_montly_hours=request.form['average_montly_hours'], work_accident=request.form['work_accident'], promotion_last_5years=request.form['promotion_last_5years'], salary=request.form['salary'], leader_host=request.form['leader_host'], culture_home=request.form['culture_home'], culture_host=request.form['culture_host'], function_host=request.form['function_host'], business_size_host=request.form['business_size_host'], economic_perspective_host=request.form['economic_perspective_host'])
 
-@app.route("/politicians")
-def politicians():
-    return render_template("politicians.html")
-
-
-@app.route("/names")
-def names():
-    """Return City Names"""
-
-    stmt = db.session.query(AirSummary).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
-
-    return jsonify(list(df.columns)[1:])
-
-
-@app.route("/data/<citydata>")
-def summary2016(citydata):
-    """Return the MetaData for a given sample."""
-    sel = [
-        Summary2016.City,
-        Summary2016.State,
-        Summary2016.Asthma_Prevalence,
-        Summary2016.COPD_Prevalence,
-        Summary2016.Stroke_Prevalence,
-        Summary2016.Heart_Prevalence,
-        Summary2016.Median_AQI,
-        Summary2016.Population,
-    ]
-
-    results = db.session.query(
-        *sel).filter(Summary2016.City == citydata).all()
-
-    # Create a dictionary entry for each row of metadata information
-    Summary2016_dict = {}
-    for result in results:
-        Summary2016_dict["-City"] = result[0]
-        Summary2016_dict["-State"] = result[1]
-        Summary2016_dict["Asthma Prevalence"] = result[2]
-        Summary2016_dict["COPD Prevalence"] = result[3]
-        Summary2016_dict["Stroke Prevalence"] = result[4]
-        Summary2016_dict["Heart Prevalence"] = result[5]
-        Summary2016_dict["Median AQI"] = result[6]
-        Summary2016_dict["Population"] = result[7]
-
-    print(Summary2016_dict)
-    return jsonify(Summary2016_dict)
-
-
-@app.route("/disease/<disease>")
-def disease2016(diseasedata):
-    """Return the MetaData for a given sample."""
-    sel = [
-        Summary2016.City,
-        Summary2016.State,
-        Summary2016.Asthma_Prevalence,
-        Summary2016.COPD_Prevalence,
-        Summary2016.Stroke_Prevalence,
-        Summary2016.Heart_Prevalence,
-        Summary2016.Median_AQI,
-        Summary2016.Population,
-    ]
-
-    results = db.session.query(
-        *sel).all()
-
-    # print(results)
-    return jsonify(results)
-
-
-@app.route("/airquality/<airquality>")
-def airquality(airquality):
-    """Return `Year`, `data_values`."""
-    stmt = db.session.query(AirSummary).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
-
-    data = {
-        "Year": df.Year.values.tolist(),
-        "data_values": df[airquality].values.tolist(),
-    }
-    return jsonify(data)
-
-
-@app.route("/world")
-def world():
-
-    stmt = db.session.query(WorldAir).statement
-    WorldAir_df = pd.read_sql_query(stmt, db.session.bind)
-
-    WorldAir_data = {
-        "lat": WorldAir_df.lat.values.tolist(),
-        "lng": WorldAir_df.lng.values.tolist(),
-        "PM25": WorldAir_df.PM25.values.tolist(),
-        "date": WorldAir_df.date.values.tolist(),
-    }
-    return jsonify(WorldAir_data)
-
-
-@app.route("/alldata")
-def alldata():
-
-    stmt = db.session.query(Summary2016).statement
-    Summary2016_df = pd.read_sql_query(stmt, db.session.bind)
-
-    Summary2016_data = {
-        "City": Summary2016_df.City.values.tolist(),
-        "Median_AQI": Summary2016_df.Median_AQI.values.tolist(),
-        "Asthma": Summary2016_df.Asthma_Prevalence.values.tolist(),
-        "COPD": Summary2016_df.COPD_Prevalence.values.tolist(),
-        "Stroke": Summary2016_df.Stroke_Prevalence.values.tolist(),
-        "Heart_Disease": Summary2016_df.Heart_Prevalence.values.tolist(),
-        "Population": Summary2016_df.Population.values.tolist(),
-    }
-    return jsonify(Summary2016_data)
+    db.session.add(we_summary)
+    db.session.commit()
+    return render_template('questionnaire.html')
 
 
 if __name__ == "__main__":

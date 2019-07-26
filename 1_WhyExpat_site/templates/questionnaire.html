@@ -1,48 +1,155 @@
 <!DOCTYPE html>
 <html>
-  	<head>
-    	<meta http-equiv="X-UA-Compatible" content="IE=12" />
-  		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    	<title>Why Expat | Questionnaire</title>
-    	<meta http-equiv="Cache-control" content="no-cache">    
-    	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    
-    	<!--<link rel="icon" href="assets/favicon.png" type="image/x-icon">-->
-    	<link href="assets/fonts/fonts.css" rel="stylesheet" type="text/css" />
-    	<link href="css/whyexpat.css" rel="stylesheet" type="text/css" />
-	</head>
-	
-	<body>
-		<header>
-			<a href='index.html'><div id="logo"><img src="assets/logo.png" height="60"></div></a>
-		</header>
 
-		<section id='questionnaire'>
-			<aside>
-				<nav>
-					<ul>
-						<li id='who-we-are'><a href="who-we-are.html"><i></i><span>Who we are</span></a></li>
-						<li id='background'><a href="background.html"><i></i><span>Background</span></a></li>
-						<li id='our-goals'><a href="our-goals.html"><i></i><span>Our Goals</span></a></li>
-						<li id='questionnaire'><a href="questionnaire.html"><i></i><span>Questionnaire</span></a></li>
-						<li id='our-tools'><a href="our-tools.html"><i></i><span> Our Tools</span></a></li>
-					</ul>
-				</nav>
-			</aside>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=12" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Why Expat | Questionnaire</title>
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<script src="https://code.jquery.com/jquery.js"></script>
+
+	<!--<link rel="icon" href="assets/favicon.png" type="image/x-icon">-->
+	<link href="../assets/fonts/fonts.css" rel="stylesheet" type="text/css" />
+	<link href="../static/stylesheets/whyexpat.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<header>
+		<a href='./index.html'>
+			<div id="logo"><img src="../assets/logo.png" height="60"></div>
+		</a>
+	</header>
+
+	<section id='questionnaire'>
+		<aside>
+			<nav>
+				<ul>
+					<li id='who-we-are'><a href="./who-we-are.html"><i></i><span>Who we are</span></a></li>
+					<li id='background'><a href="./background.html"><i></i><span>Background</span></a></li>
+					<li id='our-goals'><a href="./our-goals.html"><i></i><span>Our Goals</span></a></li>
+					<li id='questionnaire'><a href="./questionnaire.html"><i></i><span>Questionnaire</span></a></li>
+					<li id='our-tools'><a href="./our-tools.html"><i></i><span> Our Tools</span></a></li>
+				</ul>
+			</nav>
+		</aside>
+
+		<div class='row row-first'>
+
 			<article>
-				<div class='row row-first'>
-						<div class="row-title">Questionnaire </div>
-						<div class="row-text">
-							Data Gathering:<br><br>
-							<img src="assets/images/questionnaire/question.gif" width="100%" >
-							<br><br>
-						</div>
-						
-					</div>
-				</div>
-				<div class='row row-first'>
-					<div class="row-full">
-			
-			<script type="text/javascript" src='js/whyexpat.js'></script>
-	</body>
+				<form method="POST" action="">
+					<p>Satisfaction Level</p>
+					<input type="text" textarea class="textArea" rows="1" id="satisfaction_level"
+						placeholder="Enter number" name="satisfaction_level">
+					</textarea>
+					<br>
+					<br>
+					<p>Last Evaluation Score</p>
+					<input type="text" textarea class="textArea" rows="1" id="last_evaluation"
+						placeholder="Enter number" name="last_evaluation">
+					</textarea>
+					<br>
+					<br>
+					<p>Number of Projects</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="number_project"
+						placeholder="Enter number" name="number_project">
+					</textarea>
+					<br>
+					<br>
+					<p>Average Monthly Hours</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="average_montly_hours"
+						placeholder="Enter hours" name="average_montly_hours">
+					</textarea>
+					<br>
+					<br>
+					<p># of Work Accidents</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="work_accident"
+						placeholder="Enter number" name="work_accident">
+					</textarea>
+					<br>
+					<br>
+					<p># of Promotions Last 5 Years</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="promotion_last_5years"
+						placeholder="Enter number" name="promotion_last_5years">
+					</textarea>
+					<br>
+					<br>
+					<p>Salary</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="salary" placeholder="Enter salary"
+						name="salary">
+					</textarea>
+					<br>
+					<br>
+					<p>Leader Host</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="leader_host" placeholder="Enter name"
+						name="leader_host">
+					</textarea>
+					<br>
+					<br>
+					<p>Culture Home</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="culture_home" placeholder="Enter name"
+						name="culture_home">
+					</textarea>
+					<br>
+					<br>
+					<p>Culture Host</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="culture_host" placeholder="Enter name"
+						name="culture_host">
+					</textarea>
+					<br>
+					<br>
+					<p>Function Host</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="function_host" placeholder="Enter name"
+						name="function_host">
+					</textarea>
+					<br>
+					<br>
+					<p>Business Size Host</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="business_size_host"
+						placeholder="Enter number" name="business_size_host">
+					</textarea>
+					<br>
+					<br>
+					<p>Economic Perspective Host</p>
+					<input type="text" textarea class="textAreaTwo" rows="1" id="economic_perspective_host"
+						placeholder="Enter data" name="economic_perspective_host">
+					</textarea>
+					<br>
+					<br>
+					<br>
+					<!-- <input type="submit"> -->
+					<button type="submit" id="submit" value="submit">SUBMIT</button>
+				</form>
+			</article>
+
+
+		</div>
+	</section>
+	<div class='row row-first'>
+		<div class="row-full">
+
+			<!-- <script type="text/javascript" src='../static/js/whyexpat.js'></script> -->
+</body>
+
 </html>
+
+<script type="text/javascript">
+
+	$(function () {
+		$('#submit').click(function () {
+
+			$.ajax({
+				url: '/submit',
+				data: $('form').serialize(),
+				type: 'POST',
+				success: function (response) {
+					console.log("response", response);
+				},
+				error: function (error) {
+					console.log("error", error);
+				}
+			});
+		});
+	});
+
+</script>
