@@ -16,8 +16,8 @@
 
 <body>
 	<header>
-		<a href='./index.html'>
-			<div id="logo"><img src="../assets/logo.png" height="60"></div>
+		<a href='index'>
+			<div id="logo"><img src="../assets/images/home/logo-bg.png" height="60"></div>
 		</a>
 	</header>
 
@@ -25,18 +25,17 @@
 		<aside>
 			<nav>
 				<ul>
-					<li id='who-we-are'><a href="./who-we-are.html"><i></i><span>Who we are</span></a></li>
-					<li id='background'><a href="./background.html"><i></i><span>Background</span></a></li>
-					<li id='our-goals'><a href="./our-goals.html"><i></i><span>Our Goals</span></a></li>
-					<li id='questionnaire'><a href="./questionnaire.html"><i></i><span>Questionnaire</span></a></li>
-					<li id='our-tools'><a href="./our-tools.html"><i></i><span> Our Tools</span></a></li>
+					<li id='who-we-are'><a href="who-we-are"><i></i><span>Who we are</span></a></li>
+					<li id='background'><a href="background"><i></i><span>Background</span></a></li>
+					<li id='our-goals'><a href="our-goals"><i></i><span>Our Goals</span></a></li>
+					<li id='questionnaire'><a href="questionnaire"><i></i><span>Questionnaire</span></a></li>
+					<li id='our-tools'><a href="our-tools"><i></i><span> Our Tools</span></a></li>
 				</ul>
 			</nav>
 		</aside>
 
-		<div class='row row-first'>
-
-			<article>
+		<article>
+			<div class="row">
 				<form method="POST" action="">
 					<p>Satisfaction Level</p>
 					<input type="text" textarea class="textArea" rows="1" id="satisfaction_level"
@@ -120,15 +119,13 @@
 					<!-- <input type="submit"> -->
 					<button type="submit" id="submit" value="submit">SUBMIT</button>
 				</form>
-			</article>
+			</div>
+		</article>
 
-
-		</div>
 	</section>
 	<div class='row row-first'>
 		<div class="row-full">
 
-			<!-- <script type="text/javascript" src='../static/js/whyexpat.js'></script> -->
 </body>
 
 </html>
@@ -151,5 +148,41 @@
 			});
 		});
 	});
+
+	(function ($) {
+		var alreadyFixed = false;
+		function init() {
+			$('video').hover(function toggleControls() {
+				if (this.hasAttribute("controls")) {
+					this.removeAttribute("controls")
+				} else {
+					this.setAttribute("controls", "controls")
+				}
+			});
+
+			onScroll();
+			$(window).scroll(onScroll);
+
+			$(".boton-volver").bind("click", function (e) {
+				e.preventDefault();
+				$("body,html").animate({ "scrollTop": 0 }, 400);
+				return false;
+			});
+
+		}
+
+		function onScroll() {
+
+			if ($(window).scrollTop() >= 92 && alreadyFixed == false) {
+				$("aside").addClass("fixed");
+				alreadyFixed = true;
+			} else if ($(window).scrollTop() < 92) {
+				$("aside").removeClass("fixed");
+				alreadyFixed = false;
+			}
+		}
+
+		$("document").ready(init);
+	})(jQuery);
 
 </script>

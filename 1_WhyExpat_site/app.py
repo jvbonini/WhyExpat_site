@@ -60,6 +60,30 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/who-we-are")
+def whoweare():
+    """Who We Are"""
+    return render_template("who-we-are.html")
+
+
+@app.route("/background")
+def background():
+    """Background"""
+    return render_template("background.html")
+
+
+@app.route("/our-goals")
+def ourgoals():
+    """Our Goals"""
+    return render_template("our-goals.html")
+
+
+@app.route("/our-tools")
+def ourtools():
+    """Our Tools"""
+    return render_template("our-tools.html")
+
+
 @app.route("/questionnaire", methods=['GET', 'POST'])
 def questionnaire():
     if request.method == 'GET':
