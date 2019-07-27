@@ -1,0 +1,35 @@
+
+@font-face {
+	font-family: 'calibri';
+	src: url('calibri/calibri.eot');
+	src: local('☺'), 
+		 url('calibri/calibri.woff') format('woff'), 
+		 url('calibri/calibri.ttf') format('truetype'), 
+		 url('calibri/calibri.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'calibri_bold';
+	src: url('calibri/calibrib.eot');
+	src: local('☺'), 
+		 url('calibri/calibrib.woff') format('woff'), 
+		 url('calibri/calibrib.ttf') format('truetype'), 
+		 url('calibri/calibrib.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'calibri_light';
+	src: url('calibri/calibril.eot');
+	src: local('☺'), 
+		 url('calibri/calibril.woff') format('woff'), 
+		 url('calibri/calibril.ttf') format('truetype'), 
+		 url('calibri/calibril.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+

@@ -17,8 +17,8 @@ pymysql.install_as_MySQLdb()
 app = Flask(__name__)
 
 database = {
-    'user': 'p3',
-    'password': 'project3',
+    'user': '',
+    'password': '',
     'port': '3306',
     'host': '127.0.0.1',
     'database': 'projectwe',
@@ -30,7 +30,8 @@ if database['driver'] is not None:
 
 DATABASE_URL = f"mysql+pymysql://{database['user']}:{database['password']}@{database['host']}:{database['port']}/{database['database']}"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL or os.environ.get(
+    'DATABASE_URL', '')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
